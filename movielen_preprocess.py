@@ -7,9 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/102TH4IXpQBr1n9uCS_P5w63rAJ7dkp76
 """
 
-from google.colab import files
-uploaded = files.upload()
-
 import pandas as pd
 
 dataset = pd.read_csv('ml-100k/u.data', delimiter='\t', header=None, names=['userID', 'movieID', 'rating', 'timestemp'])
@@ -41,9 +38,11 @@ for i in range(data.shape[0]):
 print(len(mon))
 
 import numpy as np
+import pandas as pd
 
-mon1 = np.array(mon[0])
-print(mon1.shape)
+for i in range(8):
+  data = pd.DataFrame(np.array(mon[i]))
+  data.to_csv(f'result/mon{i}.csv', index=False, header=None)
 
 
 
