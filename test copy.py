@@ -2,9 +2,6 @@ import sys
 import os
 sys.path.append(os.getcwd())
 
-from Model_baseline.MF_b_improve import MF_b
-from Model_baseline.MF_non import MF_non
-
 import pandas as pd
 import numpy as np
 import scipy as sp
@@ -24,8 +21,6 @@ def read_data_fox(filename):
                    sep=',', names=['user','item','rate','time'], engine='python', encoding='latin-1')
     matrix = df.pivot(index='user', columns='item', values='rate')
     matrix.fillna(0, inplace=True)
-    users = matrix.index.tolist()
-    items = matrix.columns.tolist()
     matrix_list = matrix.iloc[:,:].values
 
     return matrix_list
