@@ -23,6 +23,7 @@ print(data.shape)
 path_ = 'result/ori.csv'
 dataset = read_data_ori(path_)
 print(dataset.shape)
+print(dataset[0, :])
 
 # dataset = pd.read_csv('ml-100k/u.data', delimiter='\t', header=None, names=['userID', 'movieID', 'rating', 'timestemp'])
 
