@@ -7,11 +7,8 @@ Original file is located at
     https://colab.research.google.com/drive/102TH4IXpQBr1n9uCS_P5w63rAJ7dkp76
 """
 
-from google.colab import files
-uploaded = files.upload()
-
 import pandas as pd
-
+import numpy as np
 dataset = pd.read_csv('ml-100k/u.data', delimiter='\t', header=None, names=['userID', 'movieID', 'rating', 'timestemp'])
 
 dataset.head()
@@ -26,24 +23,28 @@ data = new_data.to_numpy()
 for i in range(data.shape[0]):
   time = datetime.utcfromtimestamp(data[i, 3])
   data[i, 3] = int(time.strftime('%m'))
-print(data[0])
-print(data[-1])
 
-mon = []
+mon = [9, 10, 11, 12, 1, 2, 3, 4]
+data_set = []
 
-m = -1
+copy = np.copy(data)
 for i in range(data.shape[0]):
-  if data[i-1, 3] != data[i, 3]:
-    mon.append([])
-    m += 1
-  mon[m].append(data[i])
+  copy[i, 2] = 0
 
-print(len(mon))
+for i, s in enumerate(mon):
+  print(i, s)
+  data_set.append([])
+  for j in range(data.shape[0]):
+    if data[j, 3] == s:
+      data_set[i].append(data[j])
 
-import numpy as np
+    if data[j, 3] != s:
+      data_set[i].append(copy[j])
 
-mon1 = np.array(mon[0])
-print(mon1.shape)
+for i in range(8):
+  data = pd.DataFrame(np.array(data_set[i]))
+  new_data = data.drop(columns=['timestemp'])
+  new_data.to_csv(f'ml-100k_result/test_mon{i}.txt', index=False, header=None, sep=' ')
 
 
 
